@@ -378,7 +378,6 @@ var pizzaElementGenerator = function(i) {
   pizzaContainer.id = "pizza" + i;                // gives each pizza element a unique id
   pizzaImageContainer.classList.add("col-md-6");
 
-  //pizzaImage.src = "images/pizza_116px.png";
   pizzaImage.src = "images/pizza.png";
   pizzaImage.classList.add("img-responsive");
   pizzaImageContainer.appendChild(pizzaImage);
@@ -451,13 +450,17 @@ var resizePizzas = function(size) {
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
+
+    /** The dx and newwith calculation doesn't need to be inside the for loop.
+    *   The loop is only necessary to set the new width for each item
+    */
     var x = document.querySelectorAll(".randomPizzaContainer");
     var dx = determineDx(x[0], size);
-    var newwidth = (x[0].offsetWidth + dx) + 'px';
+    var newWidth = (x[0].offsetWidth + dx) + 'px';
+
+
     for (var i = 0; i < x.length; i++) {
-  //    var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
-  //    var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
-      x[i].style.width = newwidth;
+      x[i].style.width = newWidth;
     }
   }
 
@@ -473,11 +476,13 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
+
+/** The function getElementBYId is now out of the for loop.
+*   The for loop now just append the pizzas that were generated.
+*/
 var pizzasDiv = document.getElementById("randomPizzas");
 for (var i = 2; i < 100; i++) {
-//  var pizzasDiv = document.getElementById("randomPizzas");
   pizzasDiv.appendChild(pizzaElementGenerator(i));
-  //document.getElementById("randomPizzas").appendChild(pizzaElementGenerator(i));
 }
 
 // User Timing API again. These measurements tell you how long it took to generate the initial pizzas
@@ -508,11 +513,14 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  //var items = document.querySelectorAll('.mover');
+
+  /** The phase calculation was modified and the querySelectorAll was
+  *   replaced by getElementByClassName.
+  */
+
   var items = document.getElementsByClassName("mover");
   var factor = document.body.scrollTop / 1250;
   for (var i = 0; i < items.length; i++) {
-    //var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
     var phase = Math.sin(factor+(i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
@@ -534,7 +542,7 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 6;
   var s = 256;
-
+  // Generates 30 slilding pizzas to put in the background. There is no need to put 200 as it was.
   for (var i = 0; i < 30; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
