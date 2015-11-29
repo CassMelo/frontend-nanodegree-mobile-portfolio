@@ -1,4 +1,12 @@
-#Website Performance Optimization portfolio project
+#Udacity FrondEnd Developer Class 
+Version 1.0 11/28/2015
+
+
+##General Usage Notes
+This project is part of the Udacity FrontEnd Developer Course. In this project we had to work on on some optimization to make the app load faster and pizza.html run at 60FPS when scrolling.
+
+## Installing
+To install just copy all files under the directory dist and run the file index.html
 
 ##How to run the application
 
@@ -22,6 +30,30 @@ There are 4 projects on this portfolio.
 
     This is a fake pizzeria where the pizzas are created randomically. You can change the pizza's sizes and everytime you do so, the layout will change. It has 3 pizza's sizes: small, meduim and large.
 
+## Optimizations to run index.html
+
+###  index.html
+
+1 - Downloaded the image files (BuildYourOwn2048.jpg, WebsitePerformanceOptimization.jpg, MobileWebDevelopment.jpg)
+
+2 - Resized the file (pizzeria.jpg) using Shrink-o-matic
+
+3 - Added media on `<link href="css/print.css" rel="stylesheet" media="print">`
+
+4 - Added async `<script async src="http://www.google-analytics.com/analytics.js"></script>`
+
+5 - Updated my  Google Analytics profile ID. `ga('create', 'UA-70397381-1');`
+
+6 - Commented the line below
+
+`<!--<link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> -->`
+
+
+###  style.html
+
+1 - Minified style.css 
+
+
 ## Optimizations to run pizza.html
 ###  pizza.html
 
@@ -37,7 +69,7 @@ There are 4 projects on this portfolio.
 ```
 2 - Compacted and resized the file pizzeria.jpg
 
-### style.css
+### style-pizza.css
 1 - Added code on **_mover_** class
 
 ```
@@ -156,4 +188,29 @@ for (var i = 0, len = items.length; i < len; i++) {
 ```
 
 6 - Defined all functions with `'use strict';`
+
+## Project Deployment
+GULP was used to deploy the project. I used the info from [Getting Started with gulp](https://markgoodyear.com/2014/01/getting-started-with-gulp/)
+All files .js, .html and .css were minified during this process.
+
+
+##Author
+Cassia De Melo
+
+email: cassiac@yahoo.com
+
+##Copyright (C) 2015 Cassia
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see [License](http://www.gnu.org/licenses/).
 
