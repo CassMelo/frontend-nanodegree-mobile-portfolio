@@ -6,6 +6,7 @@
 // Load plugins
 var gulp = require('gulp'),
     sass = require('gulp-ruby-sass'),
+    htmlmin = require('gulp-html-minifier'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
     jshint = require('gulp-jshint'),
@@ -20,23 +21,27 @@ var gulp = require('gulp'),
 
 // Styles
 gulp.task('styles', function() {
-  return sass('src/styles/main.scss', { style: 'expanded' })
+  return gulp.src('src/styles/*.css')
     .pipe(autoprefixer('last 2 version'))
     .pipe(gulp.dest('dist/styles'))
-    .pipe(rename({ suffix: '.min' }))
     .pipe(minifycss())
     .pipe(gulp.dest('dist/styles'))
-    .pipe(notify({ message: 'Styles task complete' }));
+});
+
+// HTML
+gulp.task('html', function() {
+  return gulp.src('src/*.html')
+    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(gulp.dest('dist'))
+    .pipe(notify({ message: 'HTML task complete' }));
 });
 
 // Scripts
 gulp.task('scripts', function() {
-  return gulp.src('src/scripts/**/*.js')
+  return gulp.src('src/scripts/*.js')
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('default'))
-    .pipe(concat('main.js'))
     .pipe(gulp.dest('dist/scripts'))
-    .pipe(rename({ suffix: '.min' }))
     .pipe(uglify())
     .pipe(gulp.dest('dist/scripts'))
     .pipe(notify({ message: 'Scripts task complete' }));
@@ -45,26 +50,29 @@ gulp.task('scripts', function() {
 // Images
 gulp.task('images', function() {
   return gulp.src('src/images/**/*')
-    .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
+    .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
     .pipe(gulp.dest('dist/images'))
     .pipe(notify({ message: 'Images task complete' }));
 });
 
 // Clean
 gulp.task('clean', function() {
-  return del(['dist/styles', 'dist/scripts', 'dist/images']);
+  return del(['dist/styles', 'dist/scripts', 'dist/html', 'dist/images']);
 });
 
 // Default task
 gulp.task('default', ['clean'], function() {
-  gulp.start('styles', 'scripts', 'images');
+  gulp.start('styles', 'html', 'scripts', 'images');
 });
 
 // Watch
 gulp.task('watch', function() {
 
-  // Watch .scss files
-  gulp.watch('src/styles/**/*.scss', ['styles']);
+  // Watch .css files
+  gulp.watch('src/styles/**/*.css', ['styles']);
+
+  // Watch .html files
+  gulp.watch('src/**/*.html', ['html']);
 
   // Watch .js files
   gulp.watch('src/scripts/**/*.js', ['scripts']);

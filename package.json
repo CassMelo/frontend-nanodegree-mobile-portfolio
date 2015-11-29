@@ -46,6 +46,9 @@
   "_resolved": "https://registry.npmjs.org/gulp-exit/-/gulp-exit-0.0.2.tgz",
   "readme": "ERROR: No README data found!",
   "devDependencies": {
-    "gulp": "^3.9.0"
+    "gulp": "^3.9.0",
+    "gulp-html-minifier": "^0.1.6",
+    "gulp-minify-css": "^1.2.1",
+    "jshint": "^2.8.0"
   }
 }
