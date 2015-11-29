@@ -196,7 +196,7 @@ All files .js, .html and .css were minified during this process.
 
 ##Author
 Cassia De Melo
-
+	
 email: cassiac@yahoo.com
 
 ##Copyright (C) 2015 Cassia
